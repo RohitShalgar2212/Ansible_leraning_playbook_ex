@@ -1,0 +1,24 @@
+---
+- hosts: webserver
+  become: yes
+  tasks: 
+    - name: Apache httpd config  push
+      copy: 
+        src : rohit.txt
+        dest: /var/rohit.txt
+      notify:
+        - Apache service restart
+
+    - name: Create directory
+      file: path=/var/ninad state=directory
+      notify:
+        - Apache service restart  
+
+        
+
+  handlers: 
+    - name: Apache service restart
+      service: 
+         name: httpd
+         state: restarted  
+    

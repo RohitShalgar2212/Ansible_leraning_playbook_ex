@@ -1,0 +1,12 @@
+---
+- hosts: webserver
+  gather_facts: false
+  become: yes
+  tasks:
+   - shell: /usr/bin/whoami >> /var/rohit.txt
+     register: username1
+
+   - debug: 
+       msg: "This is register output {{username1}}"
+  
+

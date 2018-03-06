@@ -1,0 +1,30 @@
+---
+- hosts: webserver
+  become: yes
+  vars:
+      my_name: rohit
+  tasks: 
+    - name: install httpd
+      yum: name=httpd state=installed 
+      when: ansible_os_family=="Debian" 
+
+    - name: Apache httpd config  push
+      template: 
+        src : rohit.j2
+        dest: /var/rohit.txt
+      notify:
+        - Apache service restart
+
+    - name: Create directory
+      file: path=/var/ninad state=directory
+      notify:
+        - Apache service restart  
+
+        
+
+  handlers: 
+    - name: Apache service restart
+      service: 
+         name: httpd
+         state: restarted  
+    

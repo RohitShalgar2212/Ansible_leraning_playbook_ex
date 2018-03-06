@@ -1,0 +1,16 @@
+---
+- hosts: webserver 
+  become: Yes
+  gather_facts: False
+  tasks:
+   - name: remote logged in user
+     shell: whoami
+     register: remote_user
+
+   - debug: msg="{{remote_user.stdout}}"
+  
+   - name: Local logged in user
+     local_action: shell whoami
+     register: local_user
+
+   - debug: msg="{{local_user.stdout}}"

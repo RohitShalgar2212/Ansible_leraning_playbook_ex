@@ -1,0 +1,6 @@
+---
+# handlers file for roles_apache_ex
+- name: Apache service restart
+  service:
+    name: httpd
+    state: restarted

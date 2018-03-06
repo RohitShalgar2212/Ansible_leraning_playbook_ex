@@ -1,0 +1,37 @@
+---
+- hosts: webserver
+  become: Yes
+  gather_facts: False
+  tasks: 
+    - name: Install httpd
+      yum: 
+        name: httpd 
+        state: installed
+
+    - name: httpd service status 
+      service: 
+        name: httpd 
+        state: started 
+        enabled: yes
+
+    - name: Depoy Website
+      copy: src=index.html dest=/var/www/html/index.html mode=0644
+  
+- hosts: dbserver
+  become: Yes
+  gather_facts: False
+  tasks:
+    - name: Install MYSQL server
+      yum: 
+        name: mysql-server 
+        state: installed
+    
+    - name: Start Mysql service
+      service: 
+        name: mysqld 
+        state: started 
+        enabled: yes        
+
+    - name: Execute shell command
+      shell : echo date >> rohit.txt
+      

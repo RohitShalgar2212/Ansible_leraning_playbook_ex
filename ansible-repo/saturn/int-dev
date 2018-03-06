@@ -1,0 +1,17 @@
+web1 ansible_ssh_host=172.31.46.149 
+db1 ansible_ssh_host=172.31.87.113 
+
+[webserver]
+web1
+
+[dbserver]
+db1
+
+
+[dc-sing:children]
+webserver
+dbserver
+
+[dc-sing:vars]
+ansible_ssh_user=rohit
+ansible_ssh_pass=rohit123
